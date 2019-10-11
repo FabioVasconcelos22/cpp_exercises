@@ -1,0 +1,3 @@
+/home/fabiov/workspace/repos/cpp_exercises/prime_numbers/build/CMakeFiles/rebuild_cache.dir
+/home/fabiov/workspace/repos/cpp_exercises/prime_numbers/build/CMakeFiles/Tutorial.dir
+/home/fabiov/workspace/repos/cpp_exercises/prime_numbers/build/CMakeFiles/edit_cache.dir
