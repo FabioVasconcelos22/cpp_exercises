@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/fabiov/workspace/repos/cpp_exercises/prime_numbers/build",
-  "command": "/usr/bin/g++-5    -g   -o CMakeFiles/Tutorial.dir/tutorial.cxx.o -c /home/fabiov/workspace/repos/cpp_exercises/prime_numbers/tutorial.cxx",
-  "file": "/home/fabiov/workspace/repos/cpp_exercises/prime_numbers/tutorial.cxx"
-}
-]
