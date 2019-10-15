@@ -4,24 +4,22 @@ bool isPrime(int number)
 {
   if (number <= 0)
   {
-    std::cout << "The number " << number << " is not a natural number" << std::endl;
-    return false;
+    throw -1;
   }
-  else if (number == 1)
+
+  if (number == 1)
   {
-    std::cout << "By definition, number 1 is an exception." << std::endl;
-    return false;
+    throw 1;
   }
-  else
+  
+  for(int i=2; i<number; i++)
   {
-    for(int i=2; i<number; i++)
+    if(number%i == 0)
     {
-      if(number%i == 0)
-      {
-        return false;
-      }
+      return false;
     }
   }
+  return true;
 }
 
 int main (int argc, char *argv[])
@@ -34,19 +32,40 @@ int main (int argc, char *argv[])
     case 2:
       Min_number = atoi(argv[1]);
 
-      if(isPrime(Min_number))
+      try
       {
-        std::cout << "The number " << Min_number << " is prime." << std::endl;
-      }
-      else
+        if(isPrime(Min_number))
+        {
+          std::cout << "The number " << Min_number << " is prime." << std::endl;
+        }
+        else
+        {
+          std::cout << "The number " << Min_number << " is not prime." << std::endl;
+        }
+      } catch(int e)
       {
-        std::cout << "The number " << Min_number << " is not prime." << std::endl;
+          std::cout << "Exception: " << e << std::endl;
       }
       break;
 
     case 3:
       Min_number = atoi(argv[1]);
       Max_number = atoi(argv[2]);
+
+      if (Max_number <= Min_number)
+      {
+        std::cout << "Your Min_number is bigger than Max_numbers. Maybe you switched the arguments" << std::endl;
+        return 0;
+      }
+
+      try
+      {
+        isPrime(Min_number);
+        isPrime(Max_number);
+      } catch(int e)
+      {
+          std::cout << "Exception: " << e << std::endl;
+      }
 
       std::cout << "The prime numbers between this limits are:"<< std::endl;
 
