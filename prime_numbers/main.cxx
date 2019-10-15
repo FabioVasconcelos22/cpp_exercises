@@ -2,8 +2,6 @@
 
 bool isPrime(int number)
 {
-  int counter = 0;
-
   if (number <= 0)
   {
     std::cout << "The number " << number << " is not a natural number" << std::endl;
@@ -30,16 +28,9 @@ int main (int argc, char *argv[])
 {
   int Min_number = 0;
   int Max_number = 0;
-  char *ptr;
 
   switch(argc)
-  {
-    case 1:
-      std::cout << "You should pass some arguments to our app. E.g:" << std::endl;
-      std::cout << "./Primers X -> if you want to know if number X is primer" << std::endl;
-      std::cout << "./Primers X Y -> if you want to know the prime numbers between [ X,Y ]" << std::endl;
-      break;
-    
+  {    
     case 2:
       Min_number = atoi(argv[1]);
 
@@ -66,6 +57,12 @@ int main (int argc, char *argv[])
           std::cout << i << std::endl;
         }
       }
+      break;
+    
+    default:
+      std::cout << "You should pass some arguments to our app. E.g:" << std::endl;
+      std::cout << "./Primers X -> if you want to know if number X is primer" << std::endl;
+      std::cout << "./Primers X Y -> if you want to know the prime numbers between [ X,Y ]" << std::endl;
       break;
   }
   return 0;
