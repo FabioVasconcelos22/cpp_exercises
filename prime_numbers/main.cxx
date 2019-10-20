@@ -1,10 +1,29 @@
 #include <iostream>
+#include <math.h>
 
 //Error Struct to handle errors
 struct error_struct {
   int type;
   std::string msg;
 };
+
+int StringToInt(std::string str)
+{
+  int number = 0;
+  int mult = str.size()-1;
+    
+  for(int i=0; i<str.size(); i++)
+  {
+    if(str.at(i)>=48 && str.at(i)<=57){
+      number = number + ((str.at(i)-'0')*pow(10,mult));
+    }
+    else{
+      throw error_struct{3,"Arguments are not numbers."};
+    }
+    mult --;
+  }
+  return number;
+}
 
 //Algorithm to check if number is prime or not
 bool CheckPrime(int number)
@@ -78,20 +97,19 @@ int main (int argc, char *argv[])
 {
   int Min_number = 0;
   int Max_number = 0;
-
   try
   {
     switch(argc)
     {    
       case 2: //Check just a number
-        Min_number = atoi(argv[1]);
+        Min_number = StringToInt(argv[1]);
         Validate_number(Min_number);
         isPrime(Min_number);
         break;
 
       case 3: //Check interval
-        Min_number = atoi(argv[1]);
-        Max_number = atoi(argv[2]);
+        Min_number = StringToInt(argv[1]);
+        Max_number = StringToInt(argv[2]);
         Validate_number(Min_number, Max_number);
         
         for(int i = Min_number; i<= Max_number; i++)
