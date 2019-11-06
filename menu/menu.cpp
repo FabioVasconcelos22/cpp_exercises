@@ -12,7 +12,7 @@ public:
     std::string model = "";
     std::string path = "";
     std::string country = "";
-};
+}config;
 
 class IAction {
 public:
@@ -21,7 +21,6 @@ public:
 
 class Action_A : public IAction {
 public:
-    settings config;
     void Run () override {
         std::cout << "BILL ACCEPTOR!" << std::endl;
         config.type = "Bill_Acceptor";
@@ -33,6 +32,7 @@ class Action_B : public IAction {
 public:
     void Run () override {
         std::cout << "PRINTER!" << std::endl;
+        config.type = "Printer";
         //Preciso de tipo de impressora e path
     }
 };
@@ -41,6 +41,7 @@ class Action_C : public IAction {
 public:
     void Run () override {
         std::cout << "CARD READER!" << std::endl;
+        config.type = "Card_Reader";
         //Preciso de tipo de cardreader e path
     }
 };
@@ -49,6 +50,7 @@ class Action_D : public IAction {
 public:
     void Run () override {
         std::cout << "RFID!" << std::endl;
+        config.type = "RFID";
         //Preciso de tipo de rfid
     }
 };
@@ -88,8 +90,6 @@ int main(int argc, char **argv)
     
     int option;
 
-    settings Settings;
-
     std::vector < MenuItem > items {
         { "Bill Acceptor", new Action_A () },
         { "Printer", new Action_B () },
@@ -124,7 +124,7 @@ int main(int argc, char **argv)
             std::cout << "You didn't tip any option" << std::endl;
     }
 
-    std::cout << "type:" << Settings.type << std::endl;
+    std::cout << "type:" << config.type << std::endl;
     return 0;
 }
 
