@@ -15,17 +15,15 @@ public:
     std::string country = "";
 } config;
 
+enum Error {
+    InvalidOption = 0,
+};
 
 //Error Struct to handle errors
 struct error_struct {
   int type;
   std::string msg;
 };
-
-enum Error {
-    InvalidOption = 0,
-};
-
 
 class IAction {
 public:
@@ -106,23 +104,19 @@ class MyMenu {
         }
 
         void runMenuItem (int input) {
-            // validar input
-            if (input <= _menuItems.size()-1) {
-                std::cout << "Tudo ok" << std::endl;
-            } else {
+            
+            // Validate input
+            if (input > _menuItems.size()-1) {
                 throw error_struct{InvalidOption,"Try another option"};
-            }          
-        
-            // -> run()
+            }
 
+            //Run input
+            _menuItems.at(input).Action->Run();
         }
 };
 
 int main(int argc, char **argv) 
-{
-    //API version
-    //version();
-    
+{    
     int option;
 
     MyMenu Menu ({
@@ -136,24 +130,17 @@ int main(int argc, char **argv)
     for (;;) {
         Menu.printMenu();
         std::cin >> option;
+        
         try {
             Menu.runMenuItem (option);
         }
         catch(error_struct e) {
-            std::cerr << "Error type: " << e.type << ". \n"
-            << "Error Message: " << e.msg << std::endl;
-            break;
+            std::cerr << "\n Error type: " << e.type << ". \n"
+            << "Error Message: " << e.msg << "\n" << std::endl;
         }
     }
 
-    std::cout << "type:" << config.type << std::endl;
-    return 0;
+   std::cout << "type:" << config.type << std::endl;
+    
+    return 0; 
 }
-
-/*void version()
-{
-  std::cout << "Welcome to verison:  "
-    << SAMPLE_VERSION_MAJOR <<
-    "." << SAMPLE_VERSION_MINOR <<
-    "." << SAMPLE_VERSION_PATCH << std::endl;
-}*/
