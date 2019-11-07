@@ -5,6 +5,7 @@
 //#include "version.h"
 //void version();
 
+//Configuration
 struct settings
 {
 public:
@@ -14,12 +15,24 @@ public:
     std::string country = "";
 } config;
 
+
+//Error Struct to handle errors
+struct error_struct {
+  int type;
+  std::string msg;
+};
+
+enum Error {
+    InvalidOption = 0,
+};
+
+
 class IAction {
 public:
     virtual void Run () = 0;
 };
 
-class Action_A : public IAction {
+class Act_BillAcceptor : public IAction {
 public:
     void Run () override {
         std::cout << "BILL ACCEPTOR!" << std::endl;
@@ -28,7 +41,7 @@ public:
     }
 };
 
-class Action_B : public IAction {
+class Act_Printer : public IAction {
 public:
     void Run () override {
         std::cout << "PRINTER!" << std::endl;
@@ -37,7 +50,7 @@ public:
     }
 };
 
-class Action_C : public IAction {
+class Act_CardReader : public IAction {
 public:
     void Run () override {
         std::cout << "CARD READER!" << std::endl;
@@ -46,7 +59,7 @@ public:
     }
 };
 
-class Action_D : public IAction {
+class Act_RFID : public IAction {
 public:
     void Run () override {
         std::cout << "RFID!" << std::endl;
@@ -63,6 +76,8 @@ public:
     }
 };
 
+
+
 struct MenuItem {
 public:
 
@@ -75,7 +90,6 @@ class MyMenu {
 
     private:
         std::vector <MenuItem>  _menuItems;
-        uint64_t                _timestamp;
 
     public:  
 
@@ -93,9 +107,12 @@ class MyMenu {
 
         void runMenuItem (int input) {
             // validar input
-
-            // throw
-
+            if (input <= _menuItems.size()-1) {
+                std::cout << "Tudo ok" << std::endl;
+            } else {
+                throw error_struct{InvalidOption,"Try another option"};
+            }          
+        
             // -> run()
 
         }
@@ -109,17 +126,24 @@ int main(int argc, char **argv)
     int option;
 
     MyMenu Menu ({
-        { "Bill Acceptor", new Action_A () },
-        { "Printer", new Action_B () },
-        { "Card Reader", new Action_C () },
-        { "RFID", new Action_D () },
+        { "Bill Acceptor", new Act_BillAcceptor () },
+        { "Printer", new Act_Printer () },
+        { "Card Reader", new Act_CardReader () },
+        { "RFID", new Act_RFID () },
         { "Exit", new ExitAction () }
     });
 
     for (;;) {
         Menu.printMenu();
         std::cin >> option;
-        Menu.runMenuItem (option);
+        try {
+            Menu.runMenuItem (option);
+        }
+        catch(error_struct e) {
+            std::cerr << "Error type: " << e.type << ". \n"
+            << "Error Message: " << e.msg << std::endl;
+            break;
+        }
     }
 
     std::cout << "type:" << config.type << std::endl;
