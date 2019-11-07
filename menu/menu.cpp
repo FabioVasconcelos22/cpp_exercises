@@ -12,7 +12,7 @@ public:
     std::string model = "";
     std::string path = "";
     std::string country = "";
-}config;
+} config;
 
 class IAction {
 public:
@@ -55,6 +55,14 @@ public:
     }
 };
 
+class ExitAction : public IAction {
+public:
+    void Run () override {
+        std::cout << "Bye Bye" << std::endl;
+        std::exit(0);
+    }
+};
+
 struct MenuItem {
 public:
 
@@ -66,13 +74,14 @@ public:
 class MyMenu {
 
     private:
-        std::vector <MenuItem> _menuItems;
+        std::vector <MenuItem>  _menuItems;
+        uint64_t                _timestamp;
 
     public:  
-        MyMenu(std::vector <MenuItem> const & menuItems)
-        {
-            _menuItems = menuItems;        
-        }
+
+        MyMenu(std::vector <MenuItem> const & menuItems) :
+            _menuItems (menuItems)
+        {}
         
         void printMenu() const
         {
@@ -80,6 +89,15 @@ class MyMenu {
             {
                 std::cout << i << " - " << _menuItems.at(i).Text << std::endl;
             }   
+        }
+
+        void runMenuItem (int input) {
+            // validar input
+
+            // throw
+
+            // -> run()
+
         }
 };
 
@@ -90,38 +108,18 @@ int main(int argc, char **argv)
     
     int option;
 
-    std::vector < MenuItem > items {
+    MyMenu Menu ({
         { "Bill Acceptor", new Action_A () },
         { "Printer", new Action_B () },
         { "Card Reader", new Action_C () },
         { "RFID", new Action_D () },
-    };
+        { "Exit", new ExitAction () }
+    });
 
-    MyMenu Menu(items);
-    Action_A ActionA;
-    Action_B ActionB;
-    Action_C ActionC;
-    Action_D ActionD;
-
-    Menu.printMenu();
-
-    std::cin >> option;
-
-    switch (option){
-        case 0:
-            ActionA.Run();
-            break;
-        case 1:
-            ActionB.Run();
-            break;
-        case 2:
-            ActionC.Run();
-            break;
-        case 3:
-            ActionD.Run();
-            break;
-        default:
-            std::cout << "You didn't tip any option" << std::endl;
+    for (;;) {
+        Menu.printMenu();
+        std::cin >> option;
+        Menu.runMenuItem (option);
     }
 
     std::cout << "type:" << config.type << std::endl;

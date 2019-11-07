@@ -19,3 +19,5 @@ include_directories("${PROJECT_BINARY_DIR}")
 
 # add the executable
 add_executable(MENU menu.cpp)
+
+target_compile_features (MENU PUBLIC cxx_std_11)
