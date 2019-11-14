@@ -1,8 +1,19 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <stack>
 
 namespace Tester {
+
+    //Configuration
+    struct settings
+    {
+    public:
+        std::string type = "";
+        std::string model = "";
+        std::string path = "";
+        std::string country = "";
+    } config;
 
     enum class ErrorType : uint8_t {
         InvalidOption = 0
@@ -12,12 +23,13 @@ namespace Tester {
         ErrorType Type;
         std::string Message;
     };
-
+    
     class IAction {
     public:
         virtual void Run () = 0;
     };
 
+    
     struct MenuItem {
         std::string Text;
         IAction *   Action;
@@ -27,10 +39,11 @@ namespace Tester {
     private:
         std::vector <MenuItem>  _menuItems;
 
+    public:        
         TerminalMenu(std::vector <MenuItem> const & menuItems) :
             _menuItems (menuItems)
         {}
-            
+
         void printMenu() const
         {
             for(int i=0; i< _menuItems.size(); i++)
@@ -48,10 +61,13 @@ namespace Tester {
 
             //Run input
             _menuItems.at(input).Action->Run();
+
             
             return true;
         }
     };
+
+    std::stack <TerminalMenu> MenuObject;
 
     class Act_BillAcceptor : public IAction {
     public:
@@ -100,18 +116,61 @@ namespace Tester {
         { "RFID", new Act_RFID () },
         { "Exit", new ExitAction () }
     });
+ 
+    class Act_Enable : public IAction {
+    public:
+        void Run () override {
+            std::cout << "ENABLE" << std::endl;
+        }
+    };
+
+    class Act_Disable : public IAction {
+    public:
+        void Run () override {
+            std::cout << "DISABLE" << std::endl;
+        }
+    };
+
+    class Act_Accept : public IAction {
+    public:
+        void Run () override {
+            std::cout << "ACCEPT" << std::endl;
+        }
+    };
+
+    class BackAction : public IAction {
+    public:
+        void Run () override {
+            MenuObject.pop();
+            std::cout << "Back" << std::endl;
+        }
+    };
 
     TerminalMenu const BillAcceptorMenu ({
-        { "A", new A () },
-        { "B", new B () },
-        { "C", new C () },
+        { "Enable Bill", new Act_Enable () },
+        { "Disable Bill", new Act_Disable () },
+        { "Accept Bill", new Act_Accept () },
         { "Back", new BackAction () }
     });
 
-    TerminalMenu const BillAcceptorMenu ({
-        { "A", new A () },
-        { "B", new B () },
-        { "C", new C () },
+    TerminalMenu const PrinterMenu ({
+        { "Enable Printer", new Act_Enable () },
+        { "Disable Printer", new Act_Disable () },
+        { "Accept Printer", new Act_Accept () },
+        { "Back", new BackAction () }
+    });
+
+    TerminalMenu const CardReaderMenu ({
+        { "Enable Card", new Act_Enable () },
+        { "Disable Card", new Act_Disable () },
+        { "Accept Card", new Act_Accept () },
+        { "Back", new BackAction () }
+    });
+
+    TerminalMenu const RFIDMenu ({
+        { "Enable RFID", new Act_Enable () },
+        { "Disable RFID", new Act_Disable () },
+        { "Accept RFID", new Act_Accept () },
         { "Back", new BackAction () }
     });
 }
@@ -119,33 +178,23 @@ namespace Tester {
 //#include "version.h"
 //void version();
 
-//Configuration
-struct settings
-{
-public:
-    std::string type = "";
-    std::string model = "";
-    std::string path = "";
-    std::string country = "";
-} config;
-
 int main(int argc, char **argv)
-{    
+{   
     int option;
+
+    Tester::MenuObject.push(Tester::MainMenu);
 
     try {
         for (;;) {
-            Tester::TerminalMenu.printMenu();
+            Tester::MenuObject.top().printMenu();
             std::cin >> option;
-            Tester::TerminalMenu.runMenuItem (option);
+            Tester::MenuObject.top().runMenuItem (option);
+            std::cout << "Type: " << Tester::config.type << std::endl;
         }
     } catch(Tester::MenuException & e) {
         std::cerr
             << "\nError type: " << static_cast < int > (e.Type) << ". \n"
             << "Error Message: " << e.Message << "\n" << std::endl;
-    }
-
-   std::cout << "Type: " << config.type << std::endl;
-    
+    }    
     return 0; 
 }
