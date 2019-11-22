@@ -6,8 +6,8 @@
 int main(int argc, char **argv)
 {   
     int option;
-
-    Tester::config.ThrowError();
+    
+    Tester::Configuration config;
 
     Tester::MenuObject.push(Tester::MainMenu);
 
@@ -16,9 +16,10 @@ int main(int argc, char **argv)
             Tester::MenuObject.top().printMenu();
             std::cin >> option;
             Tester::MenuObject.top().runMenuItem (option);
-            std::cout << "Type: " << Tester::config.type << std::endl;
+            std::cout << "Type: " << config.GetType << std::endl;
+            std::cout << "Path: " << config.GetPath << std::endl;
         }
-    } catch(Tester::MenuException & e) {
+    } catch(Tester::MenuException& e) {
         std::cerr
             << "\nError type: " << static_cast < int > (e.Type) << ". \n"
             << "Error Message: " << e.Message << "\n" << std::endl;
@@ -26,34 +27,32 @@ int main(int argc, char **argv)
     return 0; 
 }
 
+
+
 namespace Tester {
-    void settings::ThrowError(){
-    throw MenuException();
-}
-
-TerminalMenu::TerminalMenu(std::vector <MenuItem> const & menuItems) :
-        _menuItems (menuItems)
-        {}
-
-void TerminalMenu::printMenu() const
-{
-    for(int i=0; i< _menuItems.size(); i++)
-    {
-        std::cout << i << " - " << _menuItems.at(i).Text << std::endl;
-    } 
-}
-
-bool TerminalMenu::runMenuItem (int input) 
-{            
-    // Validate input
-    if (input > _menuItems.size()-1) {
-        throw MenuException { ErrorType::InvalidOption,"Try another option" };
-    }
-
-    //Run input
-    _menuItems.at(input).Action->Run();
     
-    return true;
+    TerminalPage::TerminalPage(std::vector <MenuItem> const & menuItems) :
+            _menuItems (menuItems)
+            {}
+
+    void TerminalPage::printMenu() const
+    {
+        for(int i=0; i< _menuItems.size(); i++)
+        {
+            std::cout << i << " - " << _menuItems.at(i).Text << std::endl;
+        } 
     }
 
+    bool TerminalPage::runMenuItem (int input) 
+    {            
+        // Validate input
+        if (input > _menuItems.size()-1) {
+            throw MenuException { ErrorType::InvalidOption,"Try another option" };
+        }
+
+        //Run input
+        _menuItems.at(input).Action->Run();
+        
+        return true;
+    }
 }

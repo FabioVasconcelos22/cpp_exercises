@@ -13,13 +13,33 @@ namespace Tester {
     {
     public:
         std::string type = "";
-        std::string model = "";
         std::string path = "";
-        std::string country = "";
+    };
 
-        void ThrowError();
+    class Configuration {
+    private:
+        static settings _config;
+    public:         
+        void SetType (std::string config) {
+            _config.type = config;
+        }
 
-    } config;
+        void SetPath (std::string config) {
+            _config.path = config;
+        }
+
+        std::string GetType () {
+            return _config.type;
+        }
+
+        std::string GetPath () {
+            return _config.path;
+        }
+
+        settings GetConfig (){
+            return _config;
+        }
+    };
 
     enum class ErrorType : uint8_t {
         InvalidOption = 0
@@ -33,6 +53,7 @@ namespace Tester {
     class IAction {
     public:
         virtual void Run () = 0;
+        Configuration config;
     };   
 
     struct MenuItem {
@@ -40,19 +61,19 @@ namespace Tester {
         IAction *   Action;
     };
 
-    class TerminalMenu {
+    class TerminalPage {
     private:
         std::vector <MenuItem>  _menuItems;
 
     public:        
-        TerminalMenu(std::vector <MenuItem> const & menuItems);
+        TerminalPage(std::vector <MenuItem> const & menuItems);
 
         void printMenu() const;
 
         bool runMenuItem (int input);
     };
 
-    std::stack <TerminalMenu> MenuObject;
+    std::stack <TerminalPage> MenuObject;
     
     class Act_Enable : public IAction {
     public:
@@ -83,7 +104,7 @@ namespace Tester {
         }
     };
     
-    TerminalMenu const BillAcceptorMenu ({
+    TerminalPage const BillAcceptorMenu ({
         { "Enable Bill", new Act_Enable () },
         { "Disable Bill", new Act_Disable () },
         { "Accept Bill", new Act_Accept () },
@@ -93,12 +114,13 @@ namespace Tester {
     class Act_BillAcceptor : public IAction {
     public:
         void Run () override {
-            config.type = "Bill_Acceptor";
+            config.SetType ("Bill_Acceptor");
+            config.SetPath ("path do aceitador");
             MenuObject.push(BillAcceptorMenu);
         }
     };
 
-    TerminalMenu const PrinterMenu ({
+    TerminalPage const PrinterMenu ({
         { "Enable Printer", new Act_Enable () },
         { "Disable Printer", new Act_Disable () },
         { "Accept Printer", new Act_Accept () },
@@ -108,12 +130,13 @@ namespace Tester {
     class Act_Printer : public IAction {
     public:
         void Run () override {
-            config.type = "Printer";
+            config.SetType ("Printer");
+            config.SetPath ("path da printer");
             MenuObject.push(PrinterMenu);
         }
     };
 
-    TerminalMenu const CardReaderMenu ({
+    TerminalPage const CardReaderMenu ({
         { "Enable Card", new Act_Enable () },
         { "Disable Card", new Act_Disable () },
         { "Accept Card", new Act_Accept () },
@@ -123,12 +146,13 @@ namespace Tester {
     class Act_CardReader : public IAction {
     public:
         void Run () override {
-            config.type = "Card_Reader";
+            config.SetType ("Card Reader");
+            config.SetPath ("path do card reader");
             MenuObject.push(CardReaderMenu);
         }
     };
 
-    TerminalMenu const RFIDMenu ({
+    TerminalPage const RFIDMenu ({
         { "Enable RFID", new Act_Enable () },
         { "Disable RFID", new Act_Disable () },
         { "Accept RFID", new Act_Accept () },
@@ -138,7 +162,8 @@ namespace Tester {
     class Act_RFID : public IAction {
     public:
         void Run () override {
-            config.type = "RFID";
+            config.SetType ("RFID");
+            config.SetPath ("path do rfid");
             MenuObject.push(CardReaderMenu);
         }
     };
@@ -151,7 +176,7 @@ namespace Tester {
         }
     };
 
-    TerminalMenu const MainMenu ({
+    TerminalPage const MainMenu ({
         { "Bill Acceptor", new Act_BillAcceptor () },
         { "Printer", new Act_Printer () },
         { "Card Reader", new Act_CardReader () },
