@@ -18,6 +18,6 @@ configure_file(
 include_directories("${PROJECT_BINARY_DIR}")
 
 # add the executable
-add_executable(MENU menu.cpp)
+add_executable(MENU menu.cpp menu.h)
 
 target_compile_features (MENU PUBLIC cxx_std_11)
