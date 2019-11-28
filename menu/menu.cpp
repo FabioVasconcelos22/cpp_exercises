@@ -4,22 +4,32 @@
 //void version();
 
 int main(int argc, char **argv)
-{   
-    int option;
-    
-    Tester::Configuration config;
+{  
+    using namespace Tester;
 
-    Tester::MenuObject.push(Tester::MainMenu);
+    int option = 0;
+
+    Settings configuration;
+
+    TerminalPage const MainMenu ({
+        { "Bill Acceptor", new Act_BillAcceptor (configuration) },
+        { "Printer", new Act_Printer (configuration) },
+        { "Card Reader", new Act_CardReader (configuration) },
+        { "RFID", new Act_RFID (configuration) },
+        { "Exit", new ExitAction () }
+    });
+ 
+    MenuObject.push(MainMenu);
 
     try {
         for (;;) {
-            Tester::MenuObject.top().printMenu();
+            MenuObject.top().printMenu();
             std::cin >> option;
-            Tester::MenuObject.top().runMenuItem (option);
-            std::cout << "Type: " << config.GetType << std::endl;
-            std::cout << "Path: " << config.GetPath << std::endl;
+            MenuObject.top().runMenuItem (option);
+            std::cout << "Type: " << configuration.Type << std::endl;
+            std::cout << "Path: " << configuration.Path << std::endl;
         }
-    } catch(Tester::MenuException& e) {
+    } catch(MenuException& e) {
         std::cerr
             << "\nError type: " << static_cast < int > (e.Type) << ". \n"
             << "Error Message: " << e.Message << "\n" << std::endl;

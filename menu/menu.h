@@ -9,36 +9,11 @@
 
 namespace Tester {
 
-    struct settings
+    struct Settings
     {
     public:
-        std::string type = "";
-        std::string path = "";
-    };
-
-    class Configuration {
-    private:
-        static settings _config;
-    public:         
-        void SetType (std::string config) {
-            _config.type = config;
-        }
-
-        void SetPath (std::string config) {
-            _config.path = config;
-        }
-
-        std::string GetType () {
-            return _config.type;
-        }
-
-        std::string GetPath () {
-            return _config.path;
-        }
-
-        settings GetConfig (){
-            return _config;
-        }
+        std::string Type = "";
+        std::string Path = "";
     };
 
     enum class ErrorType : uint8_t {
@@ -53,7 +28,6 @@ namespace Tester {
     class IAction {
     public:
         virtual void Run () = 0;
-        Configuration config;
     };   
 
     struct MenuItem {
@@ -65,11 +39,10 @@ namespace Tester {
     private:
         std::vector <MenuItem>  _menuItems;
 
-    public:        
+    public:     
         TerminalPage(std::vector <MenuItem> const & menuItems);
 
         void printMenu() const;
-
         bool runMenuItem (int input);
     };
 
@@ -113,11 +86,18 @@ namespace Tester {
 
     class Act_BillAcceptor : public IAction {
     public:
+        Act_BillAcceptor(Settings& config):
+            _config (config) 
+        {}
+
         void Run () override {
-            config.SetType ("Bill_Acceptor");
-            config.SetPath ("path do aceitador");
+            _config.Type = "Bill_Acceptor";
+            _config.Path = "path do aceitador";
+
             MenuObject.push(BillAcceptorMenu);
         }
+    private:
+        Settings& _config;
     };
 
     TerminalPage const PrinterMenu ({
@@ -129,11 +109,19 @@ namespace Tester {
 
     class Act_Printer : public IAction {
     public:
+        Act_Printer (Settings& config): 
+            _config (config)
+        {}
+
         void Run () override {
-            config.SetType ("Printer");
-            config.SetPath ("path da printer");
+            _config.Type = "Printer";
+            _config.Path = "path da printer";
+            
             MenuObject.push(PrinterMenu);
         }
+
+    private:
+        Settings& _config;
     };
 
     TerminalPage const CardReaderMenu ({
@@ -145,11 +133,19 @@ namespace Tester {
     
     class Act_CardReader : public IAction {
     public:
+        Act_CardReader(Settings& config):
+            _config (config)
+        {}
+
         void Run () override {
-            config.SetType ("Card Reader");
-            config.SetPath ("path do card reader");
+            _config.Type = "Card Reader";
+            _config.Path = "path do card reader";
+            
             MenuObject.push(CardReaderMenu);
         }
+    
+    private:
+        Settings& _config;
     };
 
     TerminalPage const RFIDMenu ({
@@ -161,11 +157,18 @@ namespace Tester {
 
     class Act_RFID : public IAction {
     public:
+        Act_RFID(Settings& config):
+            _config (config)
+            {}
+
         void Run () override {
-            config.SetType ("RFID");
-            config.SetPath ("path do rfid");
+            _config.Type = "RFID";
+            _config.Path = "path do rfid";
+            
             MenuObject.push(CardReaderMenu);
         }
+    private:
+        Settings& _config;
     };
 
     class ExitAction : public IAction {
@@ -175,14 +178,6 @@ namespace Tester {
             std::exit(0);
         }
     };
-
-    TerminalPage const MainMenu ({
-        { "Bill Acceptor", new Act_BillAcceptor () },
-        { "Printer", new Act_Printer () },
-        { "Card Reader", new Act_CardReader () },
-        { "RFID", new Act_RFID () },
-        { "Exit", new ExitAction () }
-    });
 }
 
 #endif
