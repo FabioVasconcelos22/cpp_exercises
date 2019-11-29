@@ -1,5 +1,0 @@
-#VS Code files
-*.vscode/
-
-#build folder
-build/*
