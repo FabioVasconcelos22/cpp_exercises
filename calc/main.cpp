@@ -107,23 +107,32 @@ ILogger* getLogger(int i)
 
 
 int main (int arg_c, char ** arg_v) {
-    
-    int file = 0;
+
+    try {
+        if (arg_c <= 1)
+            throw "Not enough arguments. Try to use:\n"
+                  "./Calc num1 op num2 (optional -f to save result to file) ";
+    } catch (const char* msg){
+        std::cerr << msg << std::endl;
+        exit(1);
+    }
 
     // parse
     int a = std::stoi(arg_v[1]);
-    int b = std::stoi(arg_v[2]);
-    char opId = arg_v[3][0];
+    char opId = arg_v[2][0];
+    int b = std::stoi(arg_v[3]);
+
+    IOperation* op = getOperation (opId);
+
+    ILogger* log;
 
     if(arg_c == 5 && strcmp(arg_v[4],"-f") == 0)
     {
-        file = 1;
+        log = getLogger (1);
     }
-
-    // get calc
-    auto * op = getOperation (opId);
-   
-    auto * log = getLogger (file);
+    else{
+        log = getLogger (0);
+    }
 
     log->Log(op->Calc(a,b));
 
