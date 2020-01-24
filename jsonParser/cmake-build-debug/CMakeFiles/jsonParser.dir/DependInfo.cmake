@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/fabiov/workspace/Scripts/jsonParser/jsonParser.cpp" "/home/fabiov/workspace/Scripts/jsonParser/cmake-build-debug/CMakeFiles/jsonParser.dir/jsonParser.cpp.o"
+  "/home/fabiov/workspace/repos/cpp_exercises/jsonParser/jsonParser.cpp" "/home/fabiov/workspace/repos/cpp_exercises/jsonParser/cmake-build-debug/CMakeFiles/jsonParser.dir/jsonParser.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

@@ -3,17 +3,35 @@
 #include <vector>
 #include "ExternalLibs/json.hpp"
 
-using json = nlohmann::json;
-
 struct Config {
+public:
     std::string Name;
     std::string LastName;
     int Age;
+
+    void Parse (std::istream const & source);
+
+private:
+
 };
 
-Config const Default { "Fábio", "Vasconcelos", 27};
+Config const Default {
+    "Fábio",
+    "Vasconcelos",
+    27
+};
 
-std::vector <std::string> Invalid;
+
+void Config::Parse(std::istream & source) {
+
+    if(source.)
+
+    nlohmann::json const j = nlohmann::json::parse(source);
+
+    Read(cxt, "name", config.Name);
+    Read(cxt, "age", config.Age);
+    Read(cxt, "lastname", config.LastName);
+}
 
 // -- other stuffs by other guy
 /*namespace other_stuff {
@@ -60,20 +78,46 @@ std::vector <std::string> Invalid;
 }
 */
 //------------
+/*
+Config ParseConfigFile (std::istream const & source); // throws
+
+struct ParseReport {
+    std::vector < std::string > Errors;
+    std::vector < std::string > Warnings;
+};
+
+Config ParseConfigFile (std::istream const & source, ParseReport & report); // does not throw
+
+struct ConfigParser {
+public:
+    ConfigParser (std::istream const & source);
+    Config Parse (); // throws stuffs
+};
+
+struct ConfigParser {
+public:
+    ConfigParser(std::istream const & source);
+    Config Parse (); // does not throw
+l
+    bool HasErrors () const;
+    bool HasWarnings () const;
+
+    std::vector < std::string > const & Errors () const;
+    std::vector < std::string > const & Warnings () const;
+};
+
+struct Config {
+public:
+    ......
 
 
-void PrintConfigs(Config const& config) {
-    std::cout << "Name: " << config.Name << std::endl;
-    std::cout << "Last Name: " << config.LastName << std::endl;
-    std::cout << "Age: " << config.Age << std::endl;
-}
+    static Config Parse (std::istream const & source); // throws stuffs
 
-void PrintMissings(std::vector<std::string> Missings) {
-    std::cout << "Missing configs: " << std::endl;
-    for (auto i : Missings) {
-        std::cout << "  -> " << i << std::endl;
-    }
-}
+};
+//------------
+
+auto cfg = Config::Parse (stream);
+*/
 
 bool ValidateConfig(Config const& cfg) {
     if(Invalid.empty())
@@ -96,12 +140,14 @@ void ParseConfig(json const& j, std::string const& field, _t& cfg) {
     }
 }
 
+
 int main(int argc, char **argv) {
 
     Config config = Default;
+    std::vector <std::string> Invalid;
 
     //Check if config json exist
-    std::ifstream ifs("/home/fabiov/workspace/Scripts/jsonParser/config.json");
+    std::ifstream ifs("../confidg.json");
 
     if (ifs.is_open()) { //Reconfigure from file
         //Parse config json file
@@ -111,6 +157,9 @@ int main(int argc, char **argv) {
         ParseConfig(j, "Name", config.Name);
         ParseConfig(j, "LastName", config.LastName);
         ParseConfig(j, "Age", config.Age);
+    } else {
+        std::cout << "Config File do not exist." << std::endl;
+        std::cout << "Using Default values..." << std::endl;
     }
 
     //Validate Config

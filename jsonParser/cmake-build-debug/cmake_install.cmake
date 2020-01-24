@@ -1,4 +1,4 @@
-# Install script for directory: /home/fabiov/workspace/Scripts/jsonParser
+# Install script for directory: /home/fabiov/workspace/repos/cpp_exercises/jsonParser
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/fabiov/workspace/Scripts/jsonParser/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/fabiov/workspace/repos/cpp_exercises/jsonParser/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

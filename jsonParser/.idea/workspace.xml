@@ -11,7 +11,26 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5bafd8d6-d303-43c5-a722-f4653e355a31" name="Default Changelist" comment="" />
+    <list default="true" id="5bafd8d6-d303-43c5-a722-f4653e355a31" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/jsonParser.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/jsonParser.dir/CXX.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/jsonParser.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/jsonParser.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/jsonParser.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/jsonParser.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/jsonParser.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/jsonParser.dir/depend.internal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/jsonParser.dir/jsonParser.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/jsonParser.dir/jsonParser.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/jsonParser" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/jsonParser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/jsonParser.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/jsonParser.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jsonParser.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/jsonParser.cpp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,7 +40,11 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1WTOEElOMAUc85I8J3o8mwO41il" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -30,13 +53,14 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../repos/engine" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C/C++" />
   </component>
   <component name="RunManager">
     <configuration name="jsonParser" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="jsonParser" TARGET_NAME="jsonParser" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="jsonParser" RUN_TARGET_NAME="jsonParser">
@@ -65,6 +89,9 @@
       <option name="presentableId" value="Default" />
       <updated>1579170004873</updated>
       <workItem from="1579170006129" duration="47998000" />
+      <workItem from="1579520242390" duration="32000" />
+      <workItem from="1579520289836" duration="11497000" />
+      <workItem from="1579886374304" duration="2244000" />
     </task>
     <servers />
   </component>
@@ -80,26 +107,26 @@
       <screen x="1920" y="0" width="1920" height="1200" />
     </state>
     <state x="2338" y="271" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1200/0.27.1920.1173@1920.0.1920.1200" timestamp="1579170141377" />
-    <state x="2663" y="371" width="424" height="477" key="FileChooserDialogImpl" timestamp="1579195161330">
+    <state x="2663" y="371" width="424" height="477" key="FileChooserDialogImpl" timestamp="1579795608848">
       <screen x="1920" y="0" width="1920" height="1200" />
     </state>
-    <state x="2663" y="371" width="424" height="477" key="FileChooserDialogImpl/1920.0.1920.1200/0.27.1920.1173@1920.0.1920.1200" timestamp="1579195161330" />
-    <state width="1874" height="394" key="GridCell.Tab.0.bottom" timestamp="1579520031482">
+    <state x="2663" y="371" width="424" height="477" key="FileChooserDialogImpl/1920.0.1920.1200/0.27.1920.1173@1920.0.1920.1200" timestamp="1579795608848" />
+    <state width="1874" height="320" key="GridCell.Tab.0.bottom" timestamp="1579795610604">
       <screen x="1920" y="0" width="1920" height="1200" />
     </state>
-    <state width="1874" height="394" key="GridCell.Tab.0.bottom/1920.0.1920.1200/0.27.1920.1173@1920.0.1920.1200" timestamp="1579520031482" />
-    <state width="1874" height="394" key="GridCell.Tab.0.center" timestamp="1579520031482">
+    <state width="1874" height="320" key="GridCell.Tab.0.bottom/1920.0.1920.1200/0.27.1920.1173@1920.0.1920.1200" timestamp="1579795610604" />
+    <state width="1874" height="320" key="GridCell.Tab.0.center" timestamp="1579795610604">
       <screen x="1920" y="0" width="1920" height="1200" />
     </state>
-    <state width="1874" height="394" key="GridCell.Tab.0.center/1920.0.1920.1200/0.27.1920.1173@1920.0.1920.1200" timestamp="1579520031482" />
-    <state width="1874" height="394" key="GridCell.Tab.0.left" timestamp="1579520031482">
+    <state width="1874" height="320" key="GridCell.Tab.0.center/1920.0.1920.1200/0.27.1920.1173@1920.0.1920.1200" timestamp="1579795610604" />
+    <state width="1874" height="320" key="GridCell.Tab.0.left" timestamp="1579795610604">
       <screen x="1920" y="0" width="1920" height="1200" />
     </state>
-    <state width="1874" height="394" key="GridCell.Tab.0.left/1920.0.1920.1200/0.27.1920.1173@1920.0.1920.1200" timestamp="1579520031482" />
-    <state width="1874" height="394" key="GridCell.Tab.0.right" timestamp="1579520031482">
+    <state width="1874" height="320" key="GridCell.Tab.0.left/1920.0.1920.1200/0.27.1920.1173@1920.0.1920.1200" timestamp="1579795610604" />
+    <state width="1874" height="320" key="GridCell.Tab.0.right" timestamp="1579795610604">
       <screen x="1920" y="0" width="1920" height="1200" />
     </state>
-    <state width="1874" height="394" key="GridCell.Tab.0.right/1920.0.1920.1200/0.27.1920.1173@1920.0.1920.1200" timestamp="1579520031482" />
+    <state width="1874" height="320" key="GridCell.Tab.0.right/1920.0.1920.1200/0.27.1920.1173@1920.0.1920.1200" timestamp="1579795610604" />
     <state width="1874" height="394" key="GridCell.Tab.1.bottom" timestamp="1579520031482">
       <screen x="1920" y="0" width="1920" height="1200" />
     </state>
@@ -116,5 +143,13 @@
       <screen x="1920" y="0" width="1920" height="1200" />
     </state>
     <state width="1874" height="394" key="GridCell.Tab.1.right/1920.0.1920.1200/0.27.1920.1173@1920.0.1920.1200" timestamp="1579520031482" />
+    <state x="2369" y="248" key="SettingsEditor" timestamp="1579520352922">
+      <screen x="1920" y="0" width="1920" height="1200" />
+    </state>
+    <state x="2369" y="248" key="SettingsEditor/1920.0.1920.1200/0.27.1920.1173@1920.0.1920.1200" timestamp="1579520352922" />
+    <state x="2536" y="440" key="com.intellij.ide.util.TipDialog" timestamp="1579520313468">
+      <screen x="1920" y="0" width="1920" height="1200" />
+    </state>
+    <state x="2536" y="440" key="com.intellij.ide.util.TipDialog/1920.0.1920.1200/0.27.1920.1173@1920.0.1920.1200" timestamp="1579520313468" />
   </component>
 </project>

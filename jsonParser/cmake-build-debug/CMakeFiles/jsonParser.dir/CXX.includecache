@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/fabiov/workspace/Scripts/jsonParser/ExternalLibs/json.hpp
+/home/fabiov/workspace/repos/cpp_exercises/jsonParser/ExternalLibs/json.hpp
 algorithm
 -
 cassert
@@ -340,7 +340,7 @@ limits
 type_traits
 -
 
-/home/fabiov/workspace/Scripts/jsonParser/jsonParser.cpp
+/home/fabiov/workspace/repos/cpp_exercises/jsonParser/jsonParser.cpp
 iostream
 -
 fstream
@@ -348,5 +348,5 @@ fstream
 vector
 -
 ExternalLibs/json.hpp
-/home/fabiov/workspace/Scripts/jsonParser/ExternalLibs/json.hpp
+/home/fabiov/workspace/repos/cpp_exercises/jsonParser/ExternalLibs/json.hpp
 
