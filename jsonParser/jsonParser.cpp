@@ -91,73 +91,85 @@ public:
 auto cfg = Config::Parse (stream);
 */
 
+struct Config {
+    std::string Name = "Fábio";
+    std::string LastName = "Vasconcelos";
+    int Age = 27;
+};
 
+class ConfigParserInterface {
+public:
 
-namespace DefaultConfiguration {
-    struct Config {
-        std::string Name = "Fábio";
-        std::string LastName = "Vasconcelos";
-        int Age = 27;
+    virtual Config Parse(std::istream & source) = 0;
+
+    std::string Error;
+
+    std::vector < std::string > const& GetMissingFields() const {
+        return __MissingFields;
     };
-};
 
-
-class ConfigInterface {
-public:
-
-    virtual DefaultConfiguration::Config Parse(std::istream & source) = 0;
-
-    std::vector < std::string > MissingFields;
+protected:
+    std::vector < std::string > __MissingFields;
 
 };
 
-
-class JsonParser : public ConfigInterface {
+//Soft configuration; Check missings to know if you miss some configuration value
+class ConfigJsonParser : public ConfigParserInterface {
 public:
 
-    DefaultConfiguration::Config Parse (std::istream & source) override {
-    json const j = json::parse(source);
+    Config Parse (std::istream & source) override {
 
-    // fill here
-    _Read(j, "Name", _config.Name);
-    _Read(j, "LastName", _config.LastName);
-    _Read(j, "Age", _config.Age);
+        json j;
+        try {
+             j = json::parse(source);
+        } catch (json::exception &ex) {
+            Error = "PARSING ERROR";
+            throw Error;
+        }
 
-    return _config;
-}
+        _Read(j, "Name", _config.Name);
+        _Read(j, "LastName", _config.LastName);
+        _Read(j, "Age", _config.Age);
+
+        return _config;
+    }
 
 private:
-    DefaultConfiguration::Config _config;
+    Config _config;
 
     template < typename _t >
     void _Read(json const& j, std::string const& field, _t& cfg) {
 
         if (j.find(field)==j.end()) {
-            MissingFields.push_back(field);
+            __MissingFields.push_back(field);
         } else {
             j[field].get_to(cfg);
         }
-
     }
 };
 
 int main(int argc, char **argv) {
 
+    Config config;
+    ConfigJsonParser ParseConfig;
+
     std::ifstream ifs("../config.json");
 
-    JsonParser ParseConfig;
-    auto config = ParseConfig.Parse(ifs);
-
-
-
-
-    if(ParseConfig.MissingFields.empty()) {
-        std::cout << config.Name << config.LastName << config.Age << std::endl;
-    } else {
-        for(auto x:ParseConfig.MissingFields) {
-            std::cout << x << std::endl;
-        }
+    try {
+        config = ParseConfig.Parse(ifs);
+    } catch (std::string &ex) {
+        std::cout << ex << std::endl;
     }
 
+
+
+
+    if(ParseConfig.GetMissingFields().empty()) {
+        std::cout << config.Name << config.LastName << config.Age << std::endl;
+    } else {
+        for(auto x:ParseConfig.GetMissingFields()) {
+            std::cerr << x << std::endl;
+        }
+    }
     return 0;
 }
