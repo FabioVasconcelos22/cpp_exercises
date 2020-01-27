@@ -3,35 +3,7 @@
 #include <vector>
 #include "ExternalLibs/json.hpp"
 
-struct Config {
-public:
-    std::string Name;
-    std::string LastName;
-    int Age;
-
-    void Parse (std::istream const & source);
-
-private:
-
-};
-
-Config const Default {
-    "Fábio",
-    "Vasconcelos",
-    27
-};
-
-
-void Config::Parse(std::istream & source) {
-
-    if(source.)
-
-    nlohmann::json const j = nlohmann::json::parse(source);
-
-    Read(cxt, "name", config.Name);
-    Read(cxt, "age", config.Age);
-    Read(cxt, "lastname", config.LastName);
-}
+using nlohmann::json;
 
 // -- other stuffs by other guy
 /*namespace other_stuff {
@@ -119,52 +91,72 @@ public:
 auto cfg = Config::Parse (stream);
 */
 
-bool ValidateConfig(Config const& cfg) {
-    if(Invalid.empty())
-    {
-        PrintConfigs(cfg);
-    } else {
-        PrintMissings(Invalid);
-        return false;
-    }
-    return true;
+
+
+namespace DefaultConfiguration {
+    struct Config {
+        std::string Name = "Fábio";
+        std::string LastName = "Vasconcelos";
+        int Age = 27;
+    };
+};
+
+
+class ConfigInterface {
+public:
+
+    virtual DefaultConfiguration::Config Parse(std::istream & source) = 0;
+
+    std::vector < std::string > MissingFields;
+
+};
+
+
+class JsonParser : public ConfigInterface {
+public:
+
+    DefaultConfiguration::Config Parse (std::istream & source) override {
+    json const j = json::parse(source);
+
+    // fill here
+    _Read(j, "Name", _config.Name);
+    _Read(j, "LastName", _config.LastName);
+    _Read(j, "Age", _config.Age);
+
+    return _config;
 }
 
-template < typename _t >
-void ParseConfig(json const& j, std::string const& field, _t& cfg) {
+private:
+    DefaultConfiguration::Config _config;
 
-    if (j.find(field)==j.end()) {
-        Invalid.push_back(field);
-    } else {
-        j[field].get_to(cfg);
+    template < typename _t >
+    void _Read(json const& j, std::string const& field, _t& cfg) {
+
+        if (j.find(field)==j.end()) {
+            MissingFields.push_back(field);
+        } else {
+            j[field].get_to(cfg);
+        }
+
     }
-}
-
+};
 
 int main(int argc, char **argv) {
 
-    Config config = Default;
-    std::vector <std::string> Invalid;
+    std::ifstream ifs("../config.json");
 
-    //Check if config json exist
-    std::ifstream ifs("../confidg.json");
+    JsonParser ParseConfig;
+    auto config = ParseConfig.Parse(ifs);
 
-    if (ifs.is_open()) { //Reconfigure from file
-        //Parse config json file
-        json const j = json::parse(ifs);
 
-        //Fill config here
-        ParseConfig(j, "Name", config.Name);
-        ParseConfig(j, "LastName", config.LastName);
-        ParseConfig(j, "Age", config.Age);
+
+
+    if(ParseConfig.MissingFields.empty()) {
+        std::cout << config.Name << config.LastName << config.Age << std::endl;
     } else {
-        std::cout << "Config File do not exist." << std::endl;
-        std::cout << "Using Default values..." << std::endl;
-    }
-
-    //Validate Config
-    if(!ValidateConfig(config)){
-        return 0;
+        for(auto x:ParseConfig.MissingFields) {
+            std::cout << x << std::endl;
+        }
     }
 
     return 0;
