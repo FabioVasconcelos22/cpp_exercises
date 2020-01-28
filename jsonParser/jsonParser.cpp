@@ -24,11 +24,11 @@ public:
         return __MissingFields;
     };
 
-    bool hasWarnings() {
+    bool HasWarnings() {
         return !__MissingFields.empty();
     }
 
-    bool hasError() {
+    bool HasError() {
         return !__Errors.empty();
     }
 
@@ -44,6 +44,9 @@ class ConfigJsonParser : public ConfigParserInterface {
 public:
 
     Config Parse (std::istream & source) override {
+
+        __Errors.clear();
+        __MissingFields.clear();
 
         json j;
         try {
