@@ -65,10 +65,14 @@ private:
     template < typename _t >
     void _Read(json const& j, std::string const& field, _t& cfg) {
 
-        if (j.find(field)==j.end()) {
+        if (j.find(field) == j.end()) {
             __MissingFields.push_back(field);
         } else {
-            j[field].get_to(cfg);
+            try {
+                j[field].get_to(cfg);
+            } catch (json::exception &ex) {
+                __Errors.push_back(ex.what());
+            }
         }
     }
 };
@@ -77,7 +81,7 @@ int main(int argc, char **argv) {
 
     ConfigJsonParser ParseConfig;
     std::ifstream ifs("../config.json");
-    Config config = ParseConfig.Parse(ifs);;
-    
+    Config config = ParseConfig.Parse(ifs);
+
     return 0;
 }
